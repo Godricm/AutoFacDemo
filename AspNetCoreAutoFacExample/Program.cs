@@ -20,9 +20,9 @@ namespace AspNetCoreAutoFacExample
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             
-            WebHost.CreateDefaultBuilder(args).
-            //配置AutoFac
-            ConfigureServices(services=>services.AddAutofac())
+            WebHost.CreateDefaultBuilder(args)
+                //配置AutoFac
+                //.ConfigureServices(services=>services.AddAutofac())
                 .UseStartup<Startup>();
     }
 }

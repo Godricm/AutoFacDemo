@@ -25,10 +25,17 @@ namespace AspNetCoreAutoFacExample
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-           
+            //内部IOC
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+             
+            var builder=new ContainerBuilder();
+            ConfigureContainer(builder);
+            //使用System.ISeviceProvider、Microsoft.Extensions.DependencyInjection.ISeviceScopeFactory在autofac的容器中可用
+            builder.Populate(services);
+            var container = builder.Build();
+            return new AutofacServiceProvider(container);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
